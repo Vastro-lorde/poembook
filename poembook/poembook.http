@@ -1,0 +1,6 @@
+@poembook_HostAddress = http://localhost:5047
+
+GET {{poembook_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
