@@ -125,5 +125,36 @@ namespace poembook.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPatch]
+        [Route("update-poem/{id}")]
+        public async Task<IActionResult> UpdatePoem(string id, [FromBody] UpdatePoemDTO updatePoem)
+        {
+            try
+            {
+                if (updatePoem == null)
+                {
+                    return BadRequest();
+                }
+
+                var poem = new PoemModel
+                {
+                    Title = updatePoem.Title,
+                    Content = updatePoem.Content,
+                    Author = updatePoem.Author,
+                    UpdatedAt = DateTime.Now
+                };
+                var result = await _poemService.EditPoem(id, poem);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
